@@ -400,7 +400,7 @@ document.addEventListener('DOMContentLoaded', () => {
                   console.log('💸 Purchase button clicked');
                   
                   // Get the actual database ID from the movie data
-                  const actualMovieId = movieData.id; // This is the database ID
+                  const actualMovieId = movie.id; // This is the database ID
                   console.log('Using database movie ID:', actualMovieId);
                   
                   // Create form and submit to startPaymentExample.php

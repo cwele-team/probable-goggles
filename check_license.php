@@ -18,7 +18,14 @@ $sessionCookie = $_COOKIE['wfo_session'] ?? '';
 if (!$sessionCookie) {
     error_log("check_license.php: No session cookie found");
     http_response_code(400);
-    echo json_encode(['error' => 'Brakuje danych sesji', 'hasLicense' => false]);
+    echo json_encode([
+        'error' => 'Brakuje danych sesji', 
+        'hasLicense' => false,
+        'debug' => [
+            'cookies' => array_keys($_COOKIE),
+            'session_cookie_name' => 'wfo_session'
+        ]
+    ]);
     exit;
 }
 
@@ -32,7 +39,14 @@ $sessionData = json_decode($sessionCookie, true);
 if ($sessionData === null || !isset($sessionData['id'])) {
     error_log("check_license.php: Invalid session data");
     http_response_code(400);
-    echo json_encode(['error' => 'Nieprawidłowe dane sesji', 'hasLicense' => false]);
+    echo json_encode([
+        'error' => 'Nieprawidłowe dane sesji', 
+        'hasLicense' => false,
+        'debug' => [
+            'sessionCookie' => $sessionCookie,
+            'sessionData' => $sessionData
+        ]
+    ]);
     exit;
 }
 
@@ -48,7 +62,15 @@ error_log("check_license.php: Received userid = " . $userId . ", videoid = " . $
 if (!$userId || !$videoId) {
     error_log("check_license.php: Missing user ID or video ID");
     http_response_code(400);
-    echo json_encode(['error' => 'Brakuje ID użytkownika lub filmu', 'hasLicense' => false]);
+    echo json_encode([
+        'error' => 'Brakuje ID użytkownika lub filmu', 
+        'hasLicense' => false,
+        'debug' => [
+            'userId' => $userId,
+            'videoId' => $videoId,
+            'GET_params' => $_GET
+        ]
+    ]);
     exit;
 }
 
@@ -95,6 +117,10 @@ echo json_encode([
     'hasLicense' => $hasLicense,
     'userId' => $userId,
     'movieId' => $videoId,
-    'message' => $hasLicense ? 'Licencja aktywna' : 'Licencja wymagana'
+    'message' => $hasLicense ? 'Licencja aktywna' : 'Licencja wymagana',
+    'debug' => [
+        'query_executed' => true,
+        'subscription_count' => $hasLicense ? 'found' : 'not found'
+    ]
 ]);
 ?>

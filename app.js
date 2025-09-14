@@ -465,7 +465,7 @@ async function ensureCategoriesLoaded() {
     async function initializeWatchlistPage() {
       await ensureMoviesLoaded();
       // Check if we're on the watchlist page
-      if (window.location.pathname.includes('Lista do obejrzenia.php')) {
+        if (window.location.pathname.includes('Lista_do_obejrzenia.php')) {
         console.log('Initializing watchlist page');
         debugWatchlist();
 

@@ -48,13 +48,17 @@ function generateEmbedUrl($videoId) {
 
 try {
     // Get movie ID from request
-    $movieId = $_GET['movieId'] ?? $_POST['movieId'] ?? null;
+    $movieId = $_GET['movieId'] ?? $_POST['movieId'] ?? $_GET['id'] ?? null;
 
     if (!$movieId) {
         http_response_code(400);
         echo json_encode([
             'success' => false,
-            'error' => 'Movie ID is required'
+            'error' => 'Movie ID is required',
+            'debug' => [
+                'GET' => $_GET,
+                'POST' => $_POST
+            ]
         ]);
         exit;
     }
@@ -73,7 +77,12 @@ try {
             http_response_code(404);
             echo json_encode([
                 'success' => false,
-                'error' => 'Video ID not found for this movie'
+                'error' => 'Video ID not found for this movie',
+                'debug' => [
+                    'movieId' => $movieId,
+                    'movieTitle' => $movieTitle,
+                    'videoId' => $videoId
+                ]
             ]);
             exit;
         }
@@ -96,7 +105,11 @@ try {
         http_response_code(404);
         echo json_encode([
             'success' => false,
-            'error' => 'Movie not found'
+            'error' => 'Movie not found',
+            'debug' => [
+                'movieId' => $movieId,
+                'query' => "SELECT video_id, tytul FROM Filmy WHERE id = $movieId"
+            ]
         ]);
     }
 
@@ -105,6 +118,10 @@ try {
     http_response_code(500);
     echo json_encode([
         'success' => false,
-        'error' => 'Internal server error: ' . $e->getMessage()
+        'error' => 'Internal server error: ' . $e->getMessage(),
+        'debug' => [
+            'movieId' => $movieId ?? 'not set',
+            'exception' => $e->getMessage()
+        ]
     ]);
 }

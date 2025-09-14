@@ -127,7 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     const searchTerm = searchInput.value.trim();
                     if (searchTerm) {
                         // Redirect to movies page with search results (full search)
-                        window.location.href = `Filmy.html?search=${encodeURIComponent(searchTerm)}`;
+                        window.location.href = `Filmy.php?search=${encodeURIComponent(searchTerm)}`;
                     }
                 });
 
@@ -357,7 +357,7 @@ function showSearchDropdown(searchTerm, searchResults) {
                     `;
                 }).join('')}
                 <div class="search-results-footer">
-                    <a href="Filmy.html?search=${encodeURIComponent(searchTerm)}" class="view-all-results">
+                    <a href="Filmy.php?search=${encodeURIComponent(searchTerm)}" class="view-all-results">
                         Zobacz wszystkie wyniki
                     </a>
                 </div>
@@ -437,7 +437,7 @@ function showSearchDropdown(searchTerm, searchResults) {
                                     </div>
                                     <p class="movie-details-description">${movieData.description}</p>
                                     <div class="movie-details-actions">
-                                        <a href="player.html?id=${movieId}" class="btn btn-primary play-button" aria-label="Odtwórz film ${movieData.title}">
+                                        <a href="player.php?id=${movieId}" class="btn btn-primary play-button" aria-label="Odtwórz film ${movieData.title}">
                                             <i data-lucide="play"></i>
                                             <span>Odtwórz film</span>
                                         </a>
@@ -517,14 +517,14 @@ function showSearchDropdown(searchTerm, searchResults) {
                             `;
                             lucide.createIcons();
                             // Also update the main watchlist UI if on that page
-                            if (window.location.pathname.includes('Lista do obejrzenia.html')) {
+                            if (window.location.pathname.includes('Lista_do_obejrzenia.php')) {
                                 updateWatchlistUI();
                             }
                         };
                     }
                 } else {
                     // Redirect to player page if overlay not available or movieData is missing
-                    window.location.href = `player.html?id=${movieId}`;
+                    window.location.href = `player.php?id=${movieId}`;
                 }
             };
 
