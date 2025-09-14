@@ -5,11 +5,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Odtwarzacz - WFO</title>
         <meta name="description" content="Odtwarzacz filmów WFO - oglądaj filmy archiwalne w wysokiej jakości">
-        <link rel="stylesheet" href="style.css" />
+        <link rel="stylesheet" href="style.css?v=<?= filemtime('style.css') ?>" />
         <link
           rel="icon"
           type="image/png"
-          href="https://wfomag.co/storage/2021/10/wfo_Logo_Red300ppi.png"
+          href="https://www.wfo.com.pl/wp-content/uploads/2015/11/wfo-100x33.png"
         />
         <script src="https://unpkg.com/lucide@latest" defer></script>
       </head>
@@ -52,8 +52,8 @@
         <?php include 'footer.php'; ?>
 
         <!-- JavaScript -->
-        <script src="shared.js"></script>
-        <script src="app.js"></script>
-        <script src="player.js"></script>
+        <script src="shared.js?v=<?= filemtime('shared.js') ?>"></script>
+        <script src="app.js?v=<?= filemtime('app.js') ?>"></script>
+        <script src="player.js?v=<?= filemtime('player.js') ?>"></script>
       </body>
     </html>
